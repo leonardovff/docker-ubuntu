@@ -1,10 +1,15 @@
 FROM ubuntu:focal
 LABEL autor="lvff <leonardovff@gmail.com>"
 
-RUN apt-get update && \
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update -y && \
     apt-get install -y \
     ca-certificates \
-    gnupg2
+    gnupg2 \
+    nano \
+    libfcgi0ldbl \ 
+    net-tools
 
 ## NGINX instalation
 RUN echo "deb https://nginx.org/packages/ubuntu/ focal nginx\n" \
