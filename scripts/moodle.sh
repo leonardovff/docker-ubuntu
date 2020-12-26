@@ -12,6 +12,7 @@ git checkout MOODLE_310_STABLE
 mkdir postgres
 cd ..
 # up container
+docker-compose config
 docker-compose up -d moodle-nginx
 docker-compose exec moodle-db psql -U postgres -c "CREATE USER moodle WITH PASSWORD '123321'";
 docker-compose exec moodle-db psql -U postgres -c "CREATE DATABASE \"moodledb\" WITH OWNER \"moodle\" ENCODING 'UTF8' LC_COLLATE = 'en_US.utf8' LC_CTYPE = 'en_US.utf8'";
