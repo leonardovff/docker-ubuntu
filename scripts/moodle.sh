@@ -17,3 +17,5 @@ docker-compose up -d moodle-nginx
 docker-compose exec moodle-db psql -U postgres -c "CREATE USER moodle WITH PASSWORD '123321'";
 docker-compose exec moodle-db psql -U postgres -c "CREATE DATABASE \"moodledb\" WITH OWNER \"moodle\" ENCODING 'UTF8' LC_COLLATE = 'en_US.utf8' LC_CTYPE = 'en_US.utf8'";
 docker-compose exec moodle-db psql -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE \"moodledb\" to moodle";
+
+docker-compose exec moodle-fpm chown -R www-data /usr/share/moodledata/

@@ -1,4 +1,11 @@
 # To run the container with webserver
+## Script file
+```bash
+bash scripts/moodle.sh
+bash scripts/nextcloud.sh
+docker-compose up -d proxy
+```
+
 ## Docker-compose
 ```bash
 docker-compose up -d
