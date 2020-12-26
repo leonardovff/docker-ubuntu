@@ -1,4 +1,4 @@
-### To run the cotainer with webserver
+### To run the container with webserver
 
 ```bash
 cd nginx
