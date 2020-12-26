@@ -10,6 +10,8 @@ services:
     volumes: 
       - "./nginx/conf.d/:/etc/nginx/conf.d/"
       - "./apps/moodle:/usr/share/nginx"
+    depends_on: 
+      - moodle-fpm
 
   moodle-fpm:
     build: ./php-fpm
@@ -18,6 +20,8 @@ services:
       - "./php-fpm/pool.d/:/etc/php/7.4/fpm/pool.d/"
       - "./apps/moodle:/usr/share/nginx"
       - "./apps/moodledata:/usr/share/moodledata"
+    depends_on: 
+      - moodle-db
 
   moodle-db: 
     image: postgres

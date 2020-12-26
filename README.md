@@ -1,5 +1,11 @@
-### To run the container with webserver
+# To run the container with webserver
+## Docker-compose
+```bash
+docker-compose up -d
+```
 
+## Only docker
+### NGINX
 ```bash
 cd nginx
 docker container build -t leonardovff/nginx .
