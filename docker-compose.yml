@@ -1,14 +1,23 @@
 version: '3.2'
 
 services:
-
-  moodle-nginx:
+  proxy:
     build: ./nginx
     restart: always
     ports:
       - 80:80
     volumes: 
-      - "./nginx/conf.d/:/etc/nginx/conf.d/"
+      - "./nginx/proxy/nginx.conf:/etc/nginx/nginx.conf"
+      - "./nginx/proxy/conf.d/:/etc/nginx/conf.d/"
+    depends_on: 
+      - moodle-nginx
+
+  moodle-nginx:
+    build: ./nginx
+    restart: always
+    volumes: 
+      - "./nginx/moodle/nginx.conf:/etc/nginx/nginx.conf"
+      - "./nginx/moodle/conf.d/:/etc/nginx/conf.d/"
       - "./apps/moodle:/usr/share/nginx"
     depends_on: 
       - moodle-fpm
@@ -31,3 +40,31 @@ services:
     environment:
       POSTGRES_PASSWORD: ${MOODLE_DB_ROOT_PASSWORD}
       PGDATA: /var/lib/postgresql/data/moodle
+
+  nextcloud-nginx:
+    build: ./nginx
+    restart: always
+    volumes: 
+      - "./nginx/nextcloud/nginx.conf:/etc/nginx/nginx.conf"
+      - "./nginx/nextcloud/conf.d/:/etc/nginx/conf.d/"
+      - "./apps/nextcloud:/usr/share/nginx"
+    depends_on: 
+      - nextcloud-fpm
+
+  nextcloud-fpm:
+    build: ./php-fpm
+    restart: always
+    volumes: 
+      - "./php-fpm/pool.d/:/etc/php/7.4/fpm/pool.d/"
+      - "./apps/nextcloud:/usr/share/nginx"
+      # - "./apps/moodledata:/usr/share/moodledata"
+    depends_on: 
+      - nextcloud-db
+
+  nextcloud-db: 
+    image: mariadb
+    restart: always
+    volumes: 
+      - ./apps/mariadb:/var/lib/mysql 
+    environment:
+      MYSQL_ROOT_PASSWORD: ${NEXTCLOUD_DB_ROOT_PASSWORD}

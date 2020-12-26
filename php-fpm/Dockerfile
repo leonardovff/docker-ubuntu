@@ -5,15 +5,17 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
     apt-get install -y \
-    rsyslog \
     php7.4-fpm \
-    php-pgsql php-xml php-mbstring php-curl\
-    php-zip php-gd php-intl php-xmlrpc \
-    php-soap \
-    libfcgi0ldbl \
+    php7.4-pgsql php7.4-mysql php7.4-pdo\
+    php7.4-imagick php7.4-mbstring php7.4-curl\
+    php7.4-zip php7.4-gd php7.4-intl php7.4-xmlrpc \
+    php7.4-json php7.4-xml php7.4-soap \
+    libfcgi0ldbl 
+
+## for debug
+RUN apt-get install -y \
     nano \
     net-tools
-    # php-json php-pdo \
     # php-pear php-bcmath
 
 EXPOSE 9000/tcp
