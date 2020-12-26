@@ -2,11 +2,11 @@
 cd $(dirname "$0")
 cd ../apps/
 
-# git clone git://git.moodle.org/moodle.git
-# cd moodle
-# git branch -a            
-# git branch --track MOODLE_310_STABLE origin/MOODLE_310_STABLE       
-# git checkout MOODLE_310_STABLE  
+git clone git://git.moodle.org/moodle.git
+cd moodle
+git branch -a            
+git branch --track MOODLE_310_STABLE origin/MOODLE_310_STABLE       
+git checkout MOODLE_310_STABLE  
 
 # cd ..
 mkdir postgres
