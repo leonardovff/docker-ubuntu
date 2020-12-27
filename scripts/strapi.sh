@@ -10,7 +10,7 @@ docker-compose config
 docker-compose up -d strapi-db
 
 # create the project
-docker-compose run -p 1337:1337 strapi-node npx create-strapi-app my-project 
+docker-compose run strapi-node npx create-strapi-app my-project 
 
 # put in correct folder
 docker-compose run strapi-node cp -a ./my-project/. /usr/src/app

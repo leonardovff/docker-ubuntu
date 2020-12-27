@@ -19,7 +19,7 @@ RUN echo "deb https://nginx.org/packages/ubuntu/ focal nginx\n" \
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ABF5BD827BD9BF62
 RUN apt-get update \
     && apt-get install -y nginx \
-    certbot
+    certbot python3-certbot-nginx
 
 EXPOSE 80/tcp
 EXPOSE 443/tcp
