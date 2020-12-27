@@ -11,6 +11,9 @@ services:
       - "./nginx/proxy/conf.d/:/etc/nginx/conf.d/"
     depends_on: 
       - moodle-nginx
+      - wordpress-nginx
+      - nextcloud-nginx
+      - strapi-node 
 
   moodle-nginx:
     build: ./nginx
@@ -96,3 +99,21 @@ services:
       - ./apps/mysql:/var/lib/mysql 
     environment:
       MYSQL_ROOT_PASSWORD: ${WORDPRESS_DB_ROOT_PASSWORD}
+
+
+  strapi-node:
+    build: ./node
+    volumes:
+      - ./apps/strapi:/usr/src/app
+    restart: always
+    depends_on: 
+      - wordpress-db
+
+  strapi-db:
+    image: mongo
+    restart: always
+    volumes:
+      - "./apps/mongodata:/data/db"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_DB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_DB_ROOT_PASSWORD}
