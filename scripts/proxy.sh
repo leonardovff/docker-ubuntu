@@ -8,11 +8,8 @@ mkdir letsencrypt
 cd ..
 docker-compose config
 
-# create the project
-docker-compose run proxy certbot --nginx 
-
-# clean containers used
-docker-compose rm -f proxy
-
 # strapi the main service
 docker-compose up -d proxy
+
+# certbot
+docker-compose exec proxy certbot --nginx 
