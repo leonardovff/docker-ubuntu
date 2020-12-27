@@ -68,3 +68,31 @@ services:
       - ./apps/mariadb:/var/lib/mysql 
     environment:
       MYSQL_ROOT_PASSWORD: ${NEXTCLOUD_DB_ROOT_PASSWORD}
+
+  wordpress-nginx:
+    build: ./nginx
+    restart: always
+    volumes: 
+      - "./nginx/wordpress/nginx.conf:/etc/nginx/nginx.conf"
+      - "./nginx/wordpress/conf.d/:/etc/nginx/conf.d/"
+      - "./apps/wordpress:/usr/share/nginx"
+    depends_on: 
+      - wordpress-fpm
+
+  wordpress-fpm:
+    build: ./php-fpm
+    restart: always
+    volumes: 
+      - "./php-fpm/pool.d/:/etc/php/7.4/fpm/pool.d/"
+      - "./apps/wordpress:/usr/share/nginx"
+      # - "./apps/wordpress:/usr/share/wordpress"
+    depends_on: 
+      - wordpress-db
+
+  wordpress-db: 
+    image: mysql
+    restart: always
+    volumes: 
+      - ./apps/mysql:/var/lib/mysql 
+    environment:
+      MYSQL_ROOT_PASSWORD: ${WORDPRESS_DB_ROOT_PASSWORD}
