@@ -11,6 +11,7 @@ cd ..
 docker-compose config
 docker-compose up -d wordpress-nginx
 
+sleep 20
 # # new database
 docker-compose exec wordpress-db mysql --user=root --password=123321 -e "CREATE DATABASE wordpress DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
 
