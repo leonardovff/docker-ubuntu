@@ -10,6 +10,7 @@ services:
     volumes: 
       - "./nginx/proxy/nginx.conf:/etc/nginx/nginx.conf"
       - "./nginx/proxy/conf.d/:/etc/nginx/conf.d/"
+      - "./apps/letsencrypt/:/etc/letsencrypt"
     depends_on: 
       - moodle-nginx
       - wordpress-nginx
